@@ -1,6 +1,6 @@
 package com.avaloninc.web.demo;
 
-import com.avaloninc.web.common.api.base.BaseRequest;
+import com.avaloninc.web.commons.api.base.BaseRequest;
 import lombok.Data;
 
 /**

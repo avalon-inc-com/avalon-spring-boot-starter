@@ -1,8 +1,8 @@
 package com.avaloninc.web.demo;
 
 
-import com.avaloninc.web.common.api.Response;
-import com.avaloninc.web.common.api.Responses;
+import com.avaloninc.web.commons.api.Response;
+import com.avaloninc.web.commons.api.Responses;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;

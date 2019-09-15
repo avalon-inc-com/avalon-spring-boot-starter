@@ -2,7 +2,7 @@ package com.avaloninc.web.log.audit.interceptor;
 
 import com.google.common.collect.Lists;
 
-import com.avaloninc.web.common.api.util.RequestUtils;
+import com.avaloninc.web.commons.api.util.RequestUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;

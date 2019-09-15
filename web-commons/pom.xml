@@ -7,14 +7,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>log-audit</artifactId>
+    <artifactId>web-commons</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.avalon-inc.web</groupId>
-            <artifactId>web-commons</artifactId>
-            <version>0.1.1-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
 
 </project>
