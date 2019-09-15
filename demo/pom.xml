@@ -3,7 +3,7 @@
     <parent>
         <artifactId>avalon-spring-boot-starter</artifactId>
         <groupId>com.avalon-inc.web</groupId>
-        <version>0.1.1</version>
+        <version>0.1.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,12 +13,12 @@
         <dependency>
             <groupId>com.avalon-inc.web</groupId>
             <artifactId>log-audit</artifactId>
-            <version>0.1.1</version>
+            <version>0.1.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.avalon-inc.web</groupId>
             <artifactId>web-commons</artifactId>
-            <version>0.1.1</version>
+            <version>0.1.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
