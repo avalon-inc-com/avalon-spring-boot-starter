@@ -5,7 +5,7 @@
     <groupId>com.avalon-inc.web</groupId>
     <artifactId>avalon-spring-boot-starter</artifactId>
     <packaging>pom</packaging>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>0.1.1</version>
     <modules>
         <module>web-commons</module>
         <module>log-audit</module>
@@ -104,7 +104,7 @@
         </connection>
         <developerConnection>scm:git:git@github.com:avalon-inc-com/avalon-spring-boot-starter.git
         </developerConnection>
-        <tag>HEAD</tag>
+        <tag>avalon-spring-boot-starter-0.1.1</tag>
     </scm>
 
     <developers>
