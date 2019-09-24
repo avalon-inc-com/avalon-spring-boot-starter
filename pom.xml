@@ -15,7 +15,7 @@
     <properties>
         <guava.version>25.1-jre</guava.version>
         <lombok.version>1.18.0</lombok.version>
-        <jackson.version>2.9.9</jackson.version>
+        <jackson.version>2.10.0.pr3</jackson.version>
         <common-io.version>2.6</common-io.version>
     </properties>
 
