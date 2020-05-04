@@ -8,9 +8,9 @@
     <property name="log.maxHistory" value="30"/>
     <property name="log.filePath" value="${HOME}/logs/${spring.application.name}"/>
     <property name="log.maxSize" value="64 MB"/>
+    <property name="log.totalSizeCap" value="10 GB"/>
     <property name="log.charset" value="UTF-8"/>
     <property name="log.pattern" value="%-5level||%d{yyyy-MM-dd HH:mm:ss.SSS}||%file:%line:%class:%thread||%msg%n"/>
-
 
     <!-- 控制台输出 -->
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
@@ -22,6 +22,25 @@
         </encoder>
     </appender>
 
+    <!-- DEFAULT -->
+    <appender name="defaultAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.filePath}/out.log</file>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+            <charset>${log.charset}</charset>
+        </encoder>
+        <!-- 文件路径 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 文件名称 -->
+            <fileNamePattern>${log.filePath}/%d{yyyy-MM-dd}.%i.out.log</fileNamePattern>
+            <!-- 文件最大大小 -->
+            <maxFileSize>${log.maxSize}</maxFileSize>
+            <!-- 文件最大保存历史数量 -->
+            <MaxHistory>${log.maxHistory}</MaxHistory>
+            <!-- 文件总大小 -->
+            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
+        </rollingPolicy>
+    </appender>
 
     <!-- DEBUG -->
     <appender name="debugAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -31,15 +50,15 @@
             <charset>${log.charset}</charset>
         </encoder>
         <!-- 文件路径 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 文件名称 -->
             <fileNamePattern>${log.filePath}/%d{yyyy-MM-dd}.%i.debug.log</fileNamePattern>
             <!-- 文件最大大小 -->
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>${log.maxSize}</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxFileSize>${log.maxSize}</maxFileSize>
             <!-- 文件最大保存历史数量 -->
             <MaxHistory>${log.maxHistory}</MaxHistory>
+            <!-- 文件总大小 -->
+            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
         </rollingPolicy>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>DEBUG</level>
@@ -47,6 +66,7 @@
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
+
 
     <!-- INFO -->
     <appender name="infoAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -56,15 +76,15 @@
             <charset>${log.charset}</charset>
         </encoder>
         <!-- 文件路径 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 文件名称 -->
             <fileNamePattern>${log.filePath}/%d{yyyy-MM-dd}.%i.info.log</fileNamePattern>
             <!-- 文件最大大小 -->
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>${log.maxSize}</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxFileSize>${log.maxSize}</maxFileSize>
             <!-- 文件最大保存历史数量 -->
             <MaxHistory>${log.maxHistory}</MaxHistory>
+            <!-- 文件总大小 -->
+            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
         </rollingPolicy>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>INFO</level>
@@ -80,15 +100,15 @@
             <charset>${log.charset}</charset>
         </encoder>
         <!-- 文件路径 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 文件名称 -->
             <fileNamePattern>${log.filePath}/%d{yyyy-MM-dd}.%i.warn.log</fileNamePattern>
             <!-- 文件最大大小 -->
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>${log.maxSize}</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxFileSize>${log.maxSize}</maxFileSize>
             <!-- 文件最大保存历史数量 -->
             <MaxHistory>${log.maxHistory}</MaxHistory>
+            <!-- 文件总大小 -->
+            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
         </rollingPolicy>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>WARN</level>
@@ -96,6 +116,7 @@
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
+
     <!-- ERROR -->
     <appender name="errorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log.filePath}/error.log</file>
@@ -104,17 +125,16 @@
             <charset>${log.charset}</charset>
         </encoder>
         <!-- 文件路径 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- 文件名称 -->
             <fileNamePattern>${log.filePath}/%d{yyyy-MM-dd}.%i.error.log</fileNamePattern>
             <!-- 文件最大大小 -->
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>${log.maxSize}</maxFileSize>
-            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxFileSize>${log.maxSize}</maxFileSize>
             <!-- 文件最大保存历史数量 -->
             <MaxHistory>${log.maxHistory}</MaxHistory>
+            <!-- 文件总大小 -->
+            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
         </rollingPolicy>
-
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
             <onMatch>ACCEPT</onMatch>
@@ -125,6 +145,7 @@
     <!-- 生产环境用info -->
     <root level="INFO">
         <appender-ref ref="consoleAppender"/>
+        <appender-ref ref="defaultAppender" />
         <appender-ref ref="debugAppender" />
         <appender-ref ref="infoAppender" />
         <appender-ref ref="warnAppender" />
