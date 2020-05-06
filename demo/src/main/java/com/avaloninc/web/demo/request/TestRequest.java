@@ -1,7 +1,9 @@
-package com.avaloninc.web.demo;
+package com.avaloninc.web.demo.request;
 
-import com.avaloninc.web.commons.api.base.BaseRequest;
+import com.avaloninc.web.commons.api.requests.base.BaseRequest;
 import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * @Author: wuzhiyu.
@@ -10,5 +12,6 @@ import lombok.Data;
  */
 @Data
 public class TestRequest extends BaseRequest {
+  @NotBlank
   private String content;
 }

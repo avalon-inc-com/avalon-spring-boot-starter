@@ -1,6 +1,6 @@
 package com.avaloninc.web.commons.api.request;
 
-import com.avaloninc.web.commons.api.base.BasePaginationRequest;
+import com.avaloninc.web.commons.api.requests.base.BasePaginationRequest;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

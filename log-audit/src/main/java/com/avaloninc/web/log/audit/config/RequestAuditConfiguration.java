@@ -1,5 +1,6 @@
 package com.avaloninc.web.log.audit.config;
 
+import com.avaloninc.web.log.audit.controller.GlobalExceptionHandler;
 import com.avaloninc.web.log.audit.filter.RequestBodyWrapperFilter;
 import com.avaloninc.web.log.audit.interceptor.RequestAuditInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,10 @@ public class RequestAuditConfiguration extends WebMvcConfigurerAdapter {
   @Bean
   public RequestBodyWrapperFilter getRequestBodyWrapperFilter() {
     return new RequestBodyWrapperFilter();
+  }
+
+  @Bean
+  public GlobalExceptionHandler globalExceptionHandler() {
+    return new GlobalExceptionHandler();
   }
 }

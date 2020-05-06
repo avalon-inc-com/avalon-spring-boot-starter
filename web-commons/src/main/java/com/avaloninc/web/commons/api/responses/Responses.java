@@ -1,4 +1,4 @@
-package com.avaloninc.web.commons.api;
+package com.avaloninc.web.commons.api.responses;
 
 import java.util.List;
 

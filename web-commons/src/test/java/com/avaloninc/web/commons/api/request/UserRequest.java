@@ -1,6 +1,6 @@
 package com.avaloninc.web.commons.api.request;
 
-import com.avaloninc.web.commons.api.base.BaseRequest;
+import com.avaloninc.web.commons.api.requests.base.BaseRequest;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

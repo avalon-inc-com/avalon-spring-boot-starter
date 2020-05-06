@@ -1,4 +1,4 @@
-package com.avaloninc.web.commons.api;
+package com.avaloninc.web.commons.api.responses;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

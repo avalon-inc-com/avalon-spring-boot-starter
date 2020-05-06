@@ -1,4 +1,4 @@
-package com.avaloninc.web.commons.api.base;
+package com.avaloninc.web.commons.api.requests.base;
 
 import com.google.common.base.Strings;
 

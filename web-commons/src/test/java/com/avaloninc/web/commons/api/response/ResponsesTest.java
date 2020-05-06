@@ -2,9 +2,9 @@ package com.avaloninc.web.commons.api.response;
 
 import com.google.common.collect.ImmutableList;
 
-import com.avaloninc.web.commons.api.PaginationResponse;
-import com.avaloninc.web.commons.api.Response;
-import com.avaloninc.web.commons.api.Responses;
+import com.avaloninc.web.commons.api.responses.PaginationResponse;
+import com.avaloninc.web.commons.api.responses.Response;
+import com.avaloninc.web.commons.api.responses.Responses;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import junit.framework.TestCase;

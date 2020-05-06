@@ -1,6 +1,6 @@
 package com.avaloninc.web.commons.api.response;
 
-import com.avaloninc.web.commons.api.RespMeta;
+import com.avaloninc.web.commons.api.responses.RespMeta;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import junit.framework.TestCase;
 import org.junit.Test;
