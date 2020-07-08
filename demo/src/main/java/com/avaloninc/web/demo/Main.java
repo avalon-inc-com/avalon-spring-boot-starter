@@ -4,6 +4,8 @@ package com.avaloninc.web.demo;
 import com.avaloninc.web.commons.api.responses.Response;
 import com.avaloninc.web.commons.api.responses.Responses;
 import com.avaloninc.web.demo.request.TestRequest;
+import com.avaloninc.web.log.audit.exception.UnauthorizedException;
+import javax.validation.Valid;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 
 /**
  * @Author: wuzhiyu.
@@ -51,5 +52,10 @@ public class Main {
   @GetMapping("ex/runtime")
   public Response getRuntimeEx() {
     throw new RuntimeException("this is a runtime exception.");
+  }
+
+  @GetMapping("ex/unauthorized")
+  public Response getUnauthorizedEx() {
+    throw new UnauthorizedException("this is a unauthorized exception.");
   }
 }

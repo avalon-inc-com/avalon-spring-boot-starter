@@ -3,6 +3,7 @@ package com.avaloninc.web.log.audit.controller;
 import com.avaloninc.web.commons.api.responses.Response;
 import com.avaloninc.web.commons.api.responses.Responses;
 import com.avaloninc.web.commons.api.util.RequestUtils;
+import com.avaloninc.web.log.audit.exception.UnauthorizedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
@@ -77,6 +78,13 @@ public class GlobalExceptionHandler {
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public Response handle(final IllegalArgumentException ex) {
     return Responses.errorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+  }
+
+  @ExceptionHandler(UnauthorizedException.class)
+  @ResponseBody
+  @ResponseStatus(HttpStatus.UNAUTHORIZED)
+  public Response handle(final UnauthorizedException ex) {
+    return Responses.errorResponse(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
   }
 
   /**

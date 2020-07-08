@@ -1,21 +1,26 @@
 package com.avaloninc.web.log.audit.interceptor;
 
-import com.google.common.collect.Lists;
-
 import com.avaloninc.web.commons.api.util.RequestUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
+import java.util.stream.Stream;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Map;
-import java.util.UUID;
-import java.util.stream.Stream;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Author: wuzhiyu.
@@ -25,9 +30,11 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class RequestAuditInterceptor implements HandlerInterceptor {
 
-  private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-  private static final String       TRACE_ID_NAME = "traceId";
-  private static final String       DEFAULT_USER  = "default_user";
+  private static final ObjectMapper OBJECT_MAPPER   = new ObjectMapper();
+  private static final String       TRACE_ID_NAME   = "traceId";
+  private static final String       DEFAULT_USER    = "default_user";
+  private static final String       AND_SEPARATOR   = "&";
+  private static final String       EQUAL_SEPARATOR = "=";
 
   private final String   logPartSeparator;
   private final String[] uriAuditWhiteList;
@@ -47,24 +54,22 @@ public class RequestAuditInterceptor implements HandlerInterceptor {
     if (RequestUtils.getLogFlag()) {
 
       String              method       = request.getMethod();
-      Map<String, String> parameterMap = RequestUtils.getQueryParameterMap(request);
-      Map<String, Object> payloadMap   = RequestUtils.getRequestPayload(request);
+      Map<String, String> parameterMap = this.getQueryParameterMap(request);
+      Map<String, Object> payloadMap   = this.getRequestPayload(request);
 
       String traceId = this.getOrGenerateTraceId(method, parameterMap, payloadMap);
 
       String payloadString  = this.getMapToJson(payloadMap);
       String queryMapString = this.getMapToJson(parameterMap);
 
-      String userName = DEFAULT_USER;
-
       String requestLog = String.join(
           this.logPartSeparator,
-          Lists.newArrayList(traceId, userName, method, requestURI, queryMapString, payloadString));
+          Lists.newArrayList(method, requestURI, queryMapString, payloadString));
 
       RequestUtils.setTraceId(traceId);
-      RequestUtils.setUserName(userName);
+      RequestUtils.setUserName(DEFAULT_USER);
       RequestUtils.setStartTime(System.currentTimeMillis());
-      RequestUtils.setLogParts(requestLog);
+      RequestUtils.setRequestParts(requestLog);
     } else {
       RequestUtils.setTraceId(UUID.randomUUID().toString());
     }
@@ -97,13 +102,44 @@ public class RequestAuditInterceptor implements HandlerInterceptor {
     log.debug("After interceptor completion.");
 
     if (RequestUtils.getLogFlag()) {
-      String logParts  = RequestUtils.getLogParts();
-      Long   startTime = RequestUtils.getStartTime();
+      String requestParts = RequestUtils.getRequestParts();
+      Long   startTime    = RequestUtils.getStartTime();
 
-      long dur = System.currentTimeMillis() - startTime;
-      log.info(logParts + this.logPartSeparator + dur + " ms");
+      final String dur = System.currentTimeMillis() - startTime + " ms";
+      final List<String> logParts = Lists.newArrayList(RequestUtils.getTraceId(),
+                                                       RequestUtils.getUserName(),
+                                                       requestParts, dur);
+      log.info(String.join(this.logPartSeparator, logParts));
 
       RequestUtils.removeThreadLocalVars();
+    }
+  }
+
+
+  private Map<String, String> getQueryParameterMap(HttpServletRequest request) {
+    String queryString = request.getQueryString();
+    if (Strings.isNullOrEmpty(queryString)) {
+      return Collections.emptyMap();
+    } else {
+      Map<String, String> parameters = Maps.newHashMap();
+      Splitter.on(AND_SEPARATOR).split(queryString).forEach((pair) -> {
+        String[] split = pair.split(EQUAL_SEPARATOR);
+        parameters.put(split[0], split.length > 1 ? split[1] : "");
+      });
+      return parameters;
+    }
+  }
+
+  private Map<String, Object> getRequestPayload(HttpServletRequest request) {
+    try {
+      ServletInputStream inputStream = request.getInputStream();
+      if (Objects.isNull(inputStream) || request.getContentLengthLong() <= 0) {
+        return Collections.emptyMap();
+      } else {
+        return OBJECT_MAPPER.readValue(inputStream, Map.class);
+      }
+    } catch (IOException ex) {
+      return Collections.emptyMap();
     }
   }
 }

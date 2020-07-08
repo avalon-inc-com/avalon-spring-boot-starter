@@ -5,13 +5,12 @@ import com.avaloninc.web.commons.api.responses.Responses;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Lists;
+import java.io.IOException;
 import junit.framework.TestCase;
-import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
-import java.io.IOException;
 
 /**
  * @Author: wuzhiyu.
