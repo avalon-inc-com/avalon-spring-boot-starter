@@ -5,7 +5,7 @@
     <groupId>com.avalon-inc.web</groupId>
     <artifactId>avalon-spring-boot-starter</artifactId>
     <packaging>pom</packaging>
-    <version>2.3.2-SNAPSHOT</version>
+    <version>2.3.1-fix-SNAPSHOT</version>
     <modules>
         <module>web-commons</module>
         <module>log-audit</module>

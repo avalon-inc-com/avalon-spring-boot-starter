@@ -3,6 +3,9 @@ package com.avaloninc.web.log.audit.controller;
 import com.avaloninc.web.commons.api.responses.Response;
 import com.avaloninc.web.commons.api.responses.Responses;
 import com.avaloninc.web.commons.api.util.RequestUtils;
+import com.avaloninc.web.log.audit.exception.ConflictException;
+import com.avaloninc.web.log.audit.exception.ForbiddenException;
+import com.avaloninc.web.log.audit.exception.NotFoundException;
 import com.avaloninc.web.log.audit.exception.UnauthorizedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,8 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * The type Global exception handler.
+ *
  * @Author: wuzhiyu.
  * @Date: 2020-05-06 14:24:46.
  * @Description:
@@ -80,6 +85,12 @@ public class GlobalExceptionHandler {
     return Responses.errorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
   }
 
+  /**
+   * Handle response.
+   *
+   * @param ex the ex
+   * @return the response
+   */
   @ExceptionHandler(UnauthorizedException.class)
   @ResponseBody
   @ResponseStatus(HttpStatus.UNAUTHORIZED)
@@ -91,6 +102,46 @@ public class GlobalExceptionHandler {
    * Handle response.
    *
    * @param ex the ex
+   * @return the response
+   */
+  @ExceptionHandler(ForbiddenException.class)
+  @ResponseBody
+  @ResponseStatus(HttpStatus.FORBIDDEN)
+  public Response handle(final ForbiddenException ex) {
+    return Responses.errorResponse(HttpStatus.FORBIDDEN.value(), ex.getMessage());
+  }
+
+  /**
+   * Handle response.
+   *
+   * @param ex the ex
+   * @return the response
+   */
+  @ExceptionHandler(NotFoundException.class)
+  @ResponseBody
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  public Response handle(final NotFoundException ex) {
+    return Responses.errorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+  }
+
+  /**
+   * Handle response.
+   *
+   * @param ex the ex
+   * @return the response
+   */
+  @ExceptionHandler(ConflictException.class)
+  @ResponseBody
+  @ResponseStatus(HttpStatus.CONFLICT)
+  public Response handle(final ConflictException ex) {
+    return Responses.errorResponse(HttpStatus.CONFLICT.value(), ex.getMessage());
+  }
+
+  /**
+   * Handle response.
+   *
+   * @param request the request
+   * @param ex      the ex
    * @return the response
    */
   @ExceptionHandler(Exception.class)
